@@ -25,12 +25,13 @@ func (c *Client) Create() *cobra.Command {
 		tags            []string
 		spotInstance    bool
 		ipAddresses     []string
+		storageID       int
 	)
 
 	createServerCmd := &cobra.Command{
-		Use:   `create -p <project_id> --plan <plan_slug> --hostname --region <region_slug> [--image <image_slug>] [--ssh-keys <ssh_key_ids>] [--ip-addresses <ip_addresses_ids>] [--os-partition-size <size>] [--userdata-file <filepath>] [--tags] [--spot-instance]`,
+		Use:   `create -p <project_id> --plan <plan_slug> --hostname --region <region_slug> [--image <image_slug>] [--ssh-keys <ssh_key_ids>] [--ip-addresses <ip_addresses_ids>] [--os-partition-size <size>] [--userdata-file <filepath>] [--tags] [--spot-instance] [--storage-id <storage_id>]`,
 		Short: "Create a server.",
-		Long:  "Create a server in speficied project.",
+		Long:  "Create a server in specified project.",
 		Example: `  # Provisions a E5-1620v4 server in EU-Nord-1 location running on a Ubuntu 20.04:
   cherryctl server create -p <project_id> --plan e5_1620v4 -h staging-server-1 --image ubuntu_20_04 --region eu_nord_1`,
 
@@ -69,6 +70,7 @@ func (c *Client) Create() *cobra.Command {
 				OSPartitionSize: osPartitionSize,
 				UserData:        userdata,
 				Tags:            &tagsArr,
+				StorageID:       storageID,
 			}
 
 			s, _, err := c.Service.Create(request)
@@ -95,6 +97,7 @@ func (c *Client) Create() *cobra.Command {
 	createServerCmd.Flags().BoolVarP(&spotInstance, "spot-instance", "", false, "Provisions the server as a spot instance.")
 	createServerCmd.Flags().StringSliceVarP(&tags, "tags", "", []string{}, `Tag or list of tags for the server: --tags="key=value,env=prod".`)
 	createServerCmd.Flags().StringSliceVarP(&ipAddresses, "ip-addresses", "", []string{}, "Comma separated list of IP addresses ID's to be embed in the Server.")
+	createServerCmd.Flags().IntVarP(&storageID, "storage-id", "", 0, "ID of the storage that will be attached to server.")
 
 	_ = createServerCmd.MarkFlagRequired("project-id")
 	_ = createServerCmd.MarkFlagRequired("plan")

@@ -2,7 +2,7 @@ package servers
 
 import (
 	"encoding/base64"
-	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 
@@ -40,7 +40,7 @@ func (c *Client) Create() *cobra.Command {
 			tagsArr := make(map[string]string)
 
 			if userDataFile != "" {
-				userdataRaw, readErr := ioutil.ReadFile(userDataFile)
+				userdataRaw, readErr := os.ReadFile(userDataFile)
 				if readErr != nil {
 					return errors.Wrap(readErr, "Could not read userdata-file")
 				}

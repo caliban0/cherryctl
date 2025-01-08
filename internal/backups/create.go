@@ -68,8 +68,8 @@ func (c *Client) Create() *cobra.Command {
 	backupCreateCmd.Flags().StringVarP(&backupPlan, "plan", "", "", "Backup storage plan slug.")
 	backupCreateCmd.Flags().StringVarP(&sshKey, "ssh-key", "", "", "Plain SSH key will be stored in backup service.")
 
-	backupCreateCmd.MarkFlagRequired("region")
-	backupCreateCmd.MarkFlagRequired("plan")
+	_ = backupCreateCmd.MarkFlagRequired("region")
+	_ = backupCreateCmd.MarkFlagRequired("plan")
 
 	backupCreateCmd.MarkFlagsMutuallyExclusive("server-id", "server-hostname")
 

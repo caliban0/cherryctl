@@ -90,8 +90,8 @@ func (c *Client) Create() *cobra.Command {
 
 	ipCreateCmd.MarkFlagsMutuallyExclusive("target-hostname", "target-id", "target-ip-id")
 
-	ipCreateCmd.MarkFlagRequired("project-id")
-	ipCreateCmd.MarkFlagRequired("region")
+	_ = ipCreateCmd.MarkFlagRequired("project-id")
+	_ = ipCreateCmd.MarkFlagRequired("region")
 
 	return ipCreateCmd
 }

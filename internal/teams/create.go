@@ -47,8 +47,8 @@ func (c *Client) Create() *cobra.Command {
 	teamCreateCmd.Flags().StringVarP(&teamType, "type", "", "", "Team type, available options: personal, business.")
 	teamCreateCmd.Flags().StringVarP(&currency, "currency", "", "", "Team currency, available otions: EUR, USD.")
 
-	teamCreateCmd.MarkFlagRequired("type")
-	teamCreateCmd.MarkFlagRequired("name")
+	_ = teamCreateCmd.MarkFlagRequired("type")
+	_ = teamCreateCmd.MarkFlagRequired("name")
 
 	return teamCreateCmd
 }

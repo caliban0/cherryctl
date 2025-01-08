@@ -50,7 +50,7 @@ func (c *Client) List() *cobra.Command {
 	serverListCmd.Flags().IntVarP(&projectID, "project-id", "p", 0, "The project's ID.")
 	serverListCmd.Flags().StringVarP(&search, "search", "", "", "Search server by Hostname or Public IP phrase.")
 
-	serverListCmd.MarkFlagRequired("project-id")
+	_ = serverListCmd.MarkFlagRequired("project-id")
 
 	return serverListCmd
 }

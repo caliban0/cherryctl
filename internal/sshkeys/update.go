@@ -54,7 +54,7 @@ func (c *Client) Update() *cobra.Command {
 	sshKeyUpdateCmd.Flags().StringVarP(&label, "label", "", "", "Label of the SSH key.")
 	sshKeyUpdateCmd.Flags().StringVarP(&publicKey, "key", "", "", "Public SSH key string.")
 
-	sshKeyUpdateCmd.MarkFlagRequired("ssh-key-id")
+	_ = sshKeyUpdateCmd.MarkFlagRequired("ssh-key-id")
 
 	return sshKeyUpdateCmd
 }

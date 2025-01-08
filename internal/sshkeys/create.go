@@ -17,7 +17,7 @@ func (c *Client) Create() *cobra.Command {
 		Use:   `create --key <public_key> --label <label>`,
 		Short: "Adds an SSH key for the current user's account.",
 		Long:  "Adds an SSH key for the current user's account.",
-		Example: `  # Adds a key labled "example-key" to the current user account.
+		Example: `  # Adds a key labeled "example-key" to the current user account.
   cherryctl ssh-key create --key ssh-rsa AAAAB3N...user@domain.com --label example-key`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -43,8 +43,8 @@ func (c *Client) Create() *cobra.Command {
 	sshKeyCreateCmd.Flags().StringVarP(&label, "label", "", "", "Label of the SSH key.")
 	sshKeyCreateCmd.Flags().StringVarP(&publicKey, "key", "", "", "Public SSH key string.")
 
-	sshKeyCreateCmd.MarkFlagRequired("label")
-	sshKeyCreateCmd.MarkFlagRequired("key")
+	_ = sshKeyCreateCmd.MarkFlagRequired("label")
+	_ = sshKeyCreateCmd.MarkFlagRequired("key")
 
 	return sshKeyCreateCmd
 }

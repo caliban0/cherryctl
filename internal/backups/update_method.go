@@ -68,7 +68,7 @@ func (c *Client) UpdateMethod() *cobra.Command {
 	backupUpdateCmd.Flags().BoolVarP(&enable, "enable", "e", false, "Enable method.")
 	backupUpdateCmd.Flags().BoolVarP(&disable, "disable", "d", false, "Disable method.")
 
-	backupUpdateCmd.MarkFlagRequired("method-name")
+	_ = backupUpdateCmd.MarkFlagRequired("method-name")
 
 	return backupUpdateCmd
 }

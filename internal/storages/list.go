@@ -38,7 +38,7 @@ func (c *Client) List() *cobra.Command {
 	}
 
 	storagesListCmd.Flags().IntVarP(&projectID, "project-id", "p", 0, "The project's ID.")
-	storagesListCmd.MarkFlagRequired("project-id")
+	_ = storagesListCmd.MarkFlagRequired("project-id")
 
 	return storagesListCmd
 }

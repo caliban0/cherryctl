@@ -46,8 +46,8 @@ func (c *Client) Create() *cobra.Command {
 	projectCreateCmd.Flags().BoolVarP(&bgp, "bgp", "b", false, "Enable BGP support.")
 	projectCreateCmd.Flags().StringVarP(&name, "name", "", "", "Project name.")
 
-	projectCreateCmd.MarkFlagRequired("team-id")
-	projectCreateCmd.MarkFlagRequired("name")
+	_ = projectCreateCmd.MarkFlagRequired("team-id")
+	_ = projectCreateCmd.MarkFlagRequired("name")
 
 	return projectCreateCmd
 }

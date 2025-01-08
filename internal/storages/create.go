@@ -50,9 +50,9 @@ func (c *Client) Create() *cobra.Command {
 	storageCreateCmd.Flags().StringVarP(&region, "region", "", "", "Slug of the region.")
 	storageCreateCmd.Flags().StringVarP(&description, "description", "", "", "Storage description.")
 
-	storageCreateCmd.MarkFlagRequired("project-id")
-	storageCreateCmd.MarkFlagRequired("size")
-	storageCreateCmd.MarkFlagRequired("region")
+	_ = storageCreateCmd.MarkFlagRequired("project-id")
+	_ = storageCreateCmd.MarkFlagRequired("size")
+	_ = storageCreateCmd.MarkFlagRequired("region")
 
 	return storageCreateCmd
 }

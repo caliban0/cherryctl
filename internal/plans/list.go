@@ -65,7 +65,7 @@ func (c *Client) List() *cobra.Command {
 	planGetCmd.Flags().StringSliceVarP(&types, "type", "", []string{}, `Comma separated list of available plan types (baremetal,virtual,vps)`)
 	planGetCmd.Flags().IntVarP(&teamID, "team-id", "t", 0, "The team's ID. Return plans prices based on team billing details.")
 
-	planGetCmd.MarkFlagRequired("team-id")
+	_ = planGetCmd.MarkFlagRequired("team-id")
 
 	return planGetCmd
 }

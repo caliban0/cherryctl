@@ -43,7 +43,7 @@ func (c *Client) List() *cobra.Command {
 	ipListCmd.Flags().IntVarP(&projectID, "project-id", "p", 0, "The project's ID.")
 	ipListCmd.Flags().StringSliceVarP(&types, "type", "", []string{}, `Comma separated list of available IP addresses types (subnet,primary-ip,floating-ip,private-ip)`)
 
-	ipListCmd.MarkFlagRequired("project-id")
+	_ = ipListCmd.MarkFlagRequired("project-id")
 
 	return ipListCmd
 }

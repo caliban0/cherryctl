@@ -44,7 +44,7 @@ func (c *Client) List() *cobra.Command {
 
 	imageGetCmd.Flags().StringVarP(&plan, "plan", "", "", "The Slug or ID of a plan.")
 
-	imageGetCmd.MarkFlagRequired("plan")
+	_ = imageGetCmd.MarkFlagRequired("plan")
 
 	return imageGetCmd
 }

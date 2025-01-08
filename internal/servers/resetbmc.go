@@ -30,7 +30,7 @@ func (c *Client) ResetBMC() *cobra.Command {
 				return nil
 			}
 
-			fmt.Println("Server with ID %s was not found", args[0])
+			fmt.Printf("%s is not a valid server ID", args[0])
 			return nil
 		},
 	}

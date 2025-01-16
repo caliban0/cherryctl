@@ -47,7 +47,7 @@ func (c *Client) Delete() *cobra.Command {
 				return errors.Wrap(err, "Could not delete storage")
 			}
 
-			fmt.Println("Storage", storageID, "successfully deleted.")
+			c.Out.Outputln("Storage", storageID, "successfully deleted.")
 			return nil
 		},
 	}

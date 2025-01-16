@@ -41,8 +41,7 @@ func (c *Client) Attach() *cobra.Command {
 
 			if serverHostname != "" {
 				if projectID == 0 {
-					fmt.Println("--project-id argument is required with --server-hostname.")
-					return nil
+					return fmt.Errorf("when using --server-hostname, project-id is a required argument")
 				}
 				srvID, err := utils.ServerHostnameToID(serverHostname, projectID, c.ServerService)
 				if err != nil {
@@ -56,7 +55,7 @@ func (c *Client) Attach() *cobra.Command {
 				return errors.Wrap(err, "Could not atach storage to a server")
 			}
 
-			fmt.Println("Storage", storageID, "successfully attached to", resp.AttachedTo.Hostname)
+			c.Out.Outputln("Storage", storageID, "successfully attached to", resp.AttachedTo.Hostname)
 			return nil
 		},
 	}

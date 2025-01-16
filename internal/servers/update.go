@@ -1,7 +1,6 @@
 package servers
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -33,8 +32,7 @@ func (c *Client) Update() *cobra.Command {
 			if srvID, err := strconv.Atoi(args[0]); err == nil {
 				serverID = srvID
 			} else {
-				fmt.Println("Server with ID %s was not found.", args[0])
-				return nil
+				return errors.Wrap(err, "invalid server ID")
 			}
 
 			tagsArr := make(map[string]string)

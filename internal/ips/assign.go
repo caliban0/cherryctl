@@ -33,16 +33,14 @@ func (c *Client) Assign() *cobra.Command {
 			if utils.IsValidUUID(args[0]) {
 				ipID = args[0]
 			} else {
-				fmt.Println("IP address with ID %s was not found.", args[0])
-				return nil
+				return fmt.Errorf("invalid IP address ID: %s", args[0])
 			}
 
 			if targetIPID != "" && utils.IsValidUUID(targetIPID) {
 				request.IpID = targetIPID
 			} else if targetHostname != "" {
 				if projectID == 0 {
-					fmt.Println("--project-id argument is required with --target-hostname.")
-					return nil
+					return fmt.Errorf("when using --target-hostname, project-id is a required argument")
 				}
 				srvID, err := utils.ServerHostnameToID(targetHostname, projectID, c.ServerService)
 				if err != nil {

@@ -44,12 +44,11 @@ func (c *Client) Delete() *cobra.Command {
 					return errors.Wrap(err, "Could not delete Server")
 				}
 
-				fmt.Println("Server", serverID, "successfully deleted.")
+				c.Out.Outputln("Server", serverID, "successfully deleted.")
 				return nil
+			} else {
+				return errors.Wrap(err, "invalid server ID")
 			}
-
-			fmt.Println("Server with ID %s was not found", args[0])
-			return nil
 		},
 	}
 

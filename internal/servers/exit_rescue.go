@@ -1,7 +1,6 @@
 package servers
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/pkg/errors"
@@ -26,12 +25,11 @@ func (c *Client) ExitRescue() *cobra.Command {
 					return errors.Wrap(err, "Could not put server out of rescue mode.")
 				}
 
-				fmt.Println("Server", serverID, "successfully exited rescue mode.")
+				c.Out.Outputln("Server", serverID, "successfully exited rescue mode.")
 				return nil
+			} else {
+				return errors.Wrap(err, `invalid server ID`)
 			}
-
-			fmt.Println("Server with ID %s was not found", args[0])
-			return nil
 		},
 	}
 	return exitRescueServerCmd

@@ -2,7 +2,6 @@ package servers
 
 import (
 	"encoding/base64"
-	"fmt"
 	"os"
 	"strconv"
 
@@ -56,12 +55,11 @@ func (c *Client) Reinstall() *cobra.Command {
 					return errors.Wrap(err, "Could not reinstall a Server.")
 				}
 
-				fmt.Println("Server", serverID, "reinstall has been started.")
+				c.Out.Outputln("Server", serverID, "reinstall has been started.")
 				return nil
+			} else {
+				return errors.Wrap(err, "invalid server ID.")
 			}
-
-			fmt.Println("Server with ID %s was not found.", args[0])
-			return nil
 		},
 	}
 

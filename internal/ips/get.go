@@ -23,8 +23,7 @@ func (c *Client) Get() *cobra.Command {
 			if utils.IsValidUUID(args[0]) {
 				ipID = args[0]
 			} else {
-				fmt.Println("IP address with ID %s was not found.", args[0])
-				return nil
+				return fmt.Errorf("invalid IP address ID: %s", args[0])
 			}
 
 			getOptions := c.Servicer.GetOptions()

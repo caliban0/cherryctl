@@ -1,7 +1,6 @@
 package storages
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/pkg/errors"
@@ -31,7 +30,7 @@ func (c *Client) Detach() *cobra.Command {
 				return errors.Wrap(err, "Could not detach storage from a server")
 			}
 
-			fmt.Println("Storage volume", storageID, "detached successfully.")
+			c.Out.Outputln("Storage volume", storageID, "detached successfully.")
 			return nil
 		},
 	}

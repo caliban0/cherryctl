@@ -28,10 +28,9 @@ func (c *Client) Start() *cobra.Command {
 
 				fmt.Println("Server", serverID, "successfully started.")
 				return nil
+			} else {
+				return errors.Wrap(err, `invalid server ID`)
 			}
-
-			fmt.Println("Server with ID %s was not found.", args[0])
-			return nil
 		},
 	}
 

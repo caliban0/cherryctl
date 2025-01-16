@@ -1,7 +1,6 @@
 package servers
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/pkg/errors"
@@ -18,19 +17,17 @@ func (c *Client) Stop() *cobra.Command {
   cherryctl server stop 12345`,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cmd.SilenceUsage = true
 			if serverID, err := strconv.Atoi(args[0]); err == nil {
 				_, _, err := c.Service.PowerOff(serverID)
 				if err != nil {
 					return errors.Wrap(err, "Could not stop a Server")
 				}
 
-				fmt.Println("Server", serverID, "successfully stopped.")
+				c.Out.Outputln("Server", serverID, "successfully stopped.")
 				return nil
+			} else {
+				return errors.Wrap(err, `invalid server ID`)
 			}
-
-			fmt.Println("Server with ID %s was not found.", args[0])
-			return nil
 		},
 	}
 

@@ -1,7 +1,6 @@
 package servers
 
 import (
-	"fmt"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"strconv"
@@ -26,12 +25,11 @@ func (c *Client) ResetBMC() *cobra.Command {
 					return errors.Wrap(err, "Could not reset server BMC password")
 				}
 
-				fmt.Println("Server", serverID, "BMC password successfully reset.")
+				c.Out.Outputln("Server", serverID, "BMC password successfully reset.")
 				return nil
+			} else {
+				return errors.Wrap(err, `invalid server ID`)
 			}
-
-			fmt.Println("Server with ID %s was not found", args[0])
-			return nil
 		},
 	}
 

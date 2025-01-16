@@ -48,7 +48,7 @@ func (c *Client) Delete() *cobra.Command {
 				return errors.Wrap(err, "Could not delete a Team")
 			}
 
-			fmt.Println("Team", teamID, "successfully deleted.")
+			c.Out.Outputln("Team", teamID, "successfully deleted.")
 			return nil
 		},
 	}

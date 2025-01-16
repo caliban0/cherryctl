@@ -1,7 +1,6 @@
 package servers
 
 import (
-	"fmt"
 	"github.com/cherryservers/cherrygo/v3"
 	"strconv"
 
@@ -33,12 +32,11 @@ func (c *Client) EnterRescue() *cobra.Command {
 					return errors.Wrap(err, "Couldn't put server in rescue mode.")
 				}
 
-				fmt.Println("Server", serverID, "successfully entered rescue mode.")
+				c.Out.Outputln("Server", serverID, "successfully entered rescue mode.")
 				return nil
+			} else {
+				return errors.Wrap(err, `invalid server ID`)
 			}
-
-			fmt.Println("Server with ID %s was not found", args[0])
-			return nil
 		},
 	}
 

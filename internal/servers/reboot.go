@@ -1,7 +1,6 @@
 package servers
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/pkg/errors"
@@ -25,12 +24,11 @@ func (c *Client) Reboot() *cobra.Command {
 					return errors.Wrap(err, "Could not reboot a Server")
 				}
 
-				fmt.Println("Server", serverID, "successfully rebooted.")
+				c.Out.Outputln("Server", serverID, "successfully rebooted.")
 				return nil
+			} else {
+				return errors.Wrap(err, `invalid server ID`)
 			}
-
-			fmt.Println("Server with ID %s was not found", args[0])
-			return nil
 		},
 	}
 

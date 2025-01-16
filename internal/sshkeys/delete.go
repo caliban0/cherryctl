@@ -41,7 +41,7 @@ func (c *Client) Delete() *cobra.Command {
 				return errors.Wrap(err, "Could not delete SSH key")
 			}
 
-			fmt.Println("SSH key", sshKeyID, "successfully deleted.")
+			c.Out.Outputln("SSH key", sshKeyID, "successfully deleted.")
 			return nil
 		},
 	}

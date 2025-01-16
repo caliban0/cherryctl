@@ -47,7 +47,7 @@ func (c *Client) Delete() *cobra.Command {
 				return errors.Wrap(err, "Could not delete a backup storage")
 			}
 
-			fmt.Println("Backup storage", storageID, "successfully deleted.")
+			c.Out.Outputln("Backup storage", storageID, "successfully deleted.")
 			return nil
 		},
 	}

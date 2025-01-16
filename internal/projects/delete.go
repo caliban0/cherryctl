@@ -49,7 +49,7 @@ func (c *Client) Delete() *cobra.Command {
 				return errors.Wrap(err, "Could not delete a Project")
 			}
 
-			fmt.Println("Project", projectID, "successfully deleted.")
+			c.Out.Outputln("Project", projectID, "successfully deleted.")
 			return nil
 		},
 	}

@@ -20,11 +20,14 @@ const (
 type Outputer interface {
 	Output(interface{}, []string, *[][]string) error
 	SetFormat(Format)
+	Outputln(a ...interface{})
 }
 
 type Standard struct {
 	Format Format
 }
+
+var _ Outputer = (*Standard)(nil)
 
 func outputJSON(in interface{}) error {
 	output, err := json.MarshalIndent(in, "", "  ")
@@ -58,6 +61,11 @@ func (o *Standard) Output(in interface{}, header []string, data *[][]string) err
 		table.Render()
 		return nil
 	}
+}
+
+// Outputln outputs lines to standard output by wrapping `fmt.Println(a... any)`.
+func (o *Standard) Outputln(a ...interface{}) {
+	fmt.Println(a...)
 }
 
 func (o *Standard) SetFormat(fmt Format) {

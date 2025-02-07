@@ -153,7 +153,9 @@ func (f FakeStorageService) Update(request *cherrygo.UpdateStorage) (cherrygo.Bl
 }
 
 type FakeServersService struct {
-	ListResp func(projectID int, opts *cherrygo.GetOptions) ([]cherrygo.Server, *cherrygo.Response, error)
+	ListResp   func(projectID int, opts *cherrygo.GetOptions) ([]cherrygo.Server, *cherrygo.Response, error)
+	CreateResp func(request *cherrygo.CreateServer) (cherrygo.Server, *cherrygo.Response, error)
+	DeleteResp func(serverID int) (cherrygo.Server, *cherrygo.Response, error)
 }
 
 func (f FakeServersService) List(projectID int, opts *cherrygo.GetOptions) ([]cherrygo.Server, *cherrygo.Response, error) {
@@ -179,13 +181,17 @@ func (f FakeServersService) PowerOn(serverID int) (cherrygo.Server, *cherrygo.Re
 }
 
 func (f FakeServersService) Create(request *cherrygo.CreateServer) (cherrygo.Server, *cherrygo.Response, error) {
-	//TODO implement me
-	panic("implement me")
+	if f.CreateResp == nil {
+		return cherrygo.Server{}, nil, errors.New("create server called without injected CreateResp mock")
+	}
+	return f.CreateResp(request)
 }
 
 func (f FakeServersService) Delete(serverID int) (cherrygo.Server, *cherrygo.Response, error) {
-	//TODO implement me
-	panic("implement me")
+	if f.DeleteResp == nil {
+		return cherrygo.Server{}, nil, errors.New("delete server called without injected DeleteResp mock")
+	}
+	return f.DeleteResp(serverID)
 }
 
 func (f FakeServersService) PowerState(serverID int) (cherrygo.PowerState, *cherrygo.Response, error) {

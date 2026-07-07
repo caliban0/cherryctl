@@ -1,15 +1,27 @@
-## cherryctl plan
+## cherryctl plan get
 
-Plan operations.
+Get a server plan.
 
-### Synopsis
+```
+cherryctl plan get SLUG [-r <region_slug>] [flags]
+```
 
-Plan operations: get, list.
+### Examples
+
+```
+  # Get a plan
+  cherryctl plan get 'B2-1-1gb-20s-shared'
+  
+  # Get a plan in a specific region
+  cherryctl plan get 'B2-1-1gb-20s-shared' -r "LT-Siauliai"
+  
+```
 
 ### Options
 
 ```
-  -h, --help   help for plan
+  -h, --help            help for get
+  -r, --region string   The Slug or ID of a region.
 ```
 
 ### Options inherited from parent commands
@@ -25,7 +37,5 @@ Plan operations: get, list.
 
 ### SEE ALSO
 
-* [cherryctl](cherryctl.md)	 - Cherry Servers Command Line Interface (CLI)
-* [cherryctl plan get](cherryctl_plan_get.md)	 - Get a server plan.
-* [cherryctl plan list](cherryctl_plan_list.md)	 - Retrieves a list of server plans.
+* [cherryctl plan](cherryctl_plan.md)	 - Plan operations.
 

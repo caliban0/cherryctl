@@ -33,26 +33,32 @@ func TestList(t *testing.T) {
 		args             []string
 		getOpts *cherrygo.GetOptions
 		wantClientParams []any
+		wantTd [][]string
 	}{
 		{
 			title:            "only team-id",
 			args:             []string{"--team-id", "1"},
 			wantClientParams: []any{1, &cherrygo.GetOptions{}},
+			wantTd:           [][]string{{"test-plan", "test-region", "1", fmt.Sprintf("%f", 1.0), "2", fmt.Sprintf("%f", 0.5)},
+				{"test-plan", "test-region-2", "1", fmt.Sprintf("%f", 1.0), "2", fmt.Sprintf("%f", 0.5)}},
 		},
 		{
 			title:            "team-id and region slug",
 			args:             []string{"--team-id", "1", "--region", "test-region"},
 			wantClientParams: []any{1, &cherrygo.GetOptions{QueryParams: map[string]string{"region": "test-region"}}},
+			wantTd: [][]string{{"test-plan", "test-region", "1", fmt.Sprintf("%f", 1.0), "2", fmt.Sprintf("%f", 0.5)}},
 		},
 		{
 			title:            "team-id and region id",
 			args:             []string{"--team-id", "1", "--region", "1"},
 			wantClientParams: []any{1, &cherrygo.GetOptions{QueryParams: map[string]string{"region": "1"}}},
+			wantTd: [][]string{{"test-plan", "test-region", "1", fmt.Sprintf("%f", 1.0), "2", fmt.Sprintf("%f", 0.5)}},
 		},
 		{
 			title:            "shorthands",
 			args:             []string{"-t", "1", "-r", "test-region"},
 			wantClientParams: []any{1, &cherrygo.GetOptions{QueryParams: map[string]string{"region": "test-region"}}},
+			wantTd: [][]string{{"test-plan", "test-region", "1", fmt.Sprintf("%f", 1.0), "2", fmt.Sprintf("%f", 0.5)}},
 		},
 	}
 
@@ -90,8 +96,7 @@ func TestList(t *testing.T) {
 
 			wantPlan := fakeSvc.Plan()
 			wantTh := []string{"Plan Slug", "Region Slug", "Stock Hourly", "Hourly Price", "Stock Spot", "Spot Price"}
-			wantTd := [][]string{{"test-plan", "test-region", "1", fmt.Sprintf("%f", 1.0), "2", fmt.Sprintf("%f", 0.5)}}
-			fakeOut.Calls[0].Assert(t, []cherrygo.Plan{wantPlan}, wantTh, wantTd)
+			fakeOut.Calls[0].Assert(t, []cherrygo.Plan{wantPlan}, wantTh, tc.wantTd)
 		})
 	}
 }

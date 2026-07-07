@@ -20,6 +20,7 @@ func (c *Command) CobraCommand() *cobra.Command {
 
 	cmd.AddCommand(
 		c.list(),
+		c.get(),
 	)
 
 	return cmd

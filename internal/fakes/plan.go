@@ -42,6 +42,11 @@ func (s *PlanService) Plan() cherrygo.Plan {
 			StockQty: 1,
 			SpotQty:  2,
 		},
+		{
+			Region:   &cherrygo.Region{ID:2, Slug: "test-region-2"},
+			StockQty: 1,
+			SpotQty:  2,
+		},
 	}
 	return cherrygo.Plan{ID: 1, Slug: "test-plan", Pricing: pricing, AvailableRegions: regions}
 }

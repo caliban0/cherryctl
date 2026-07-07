@@ -1,9 +1,6 @@
 package plans
 
 import (
-	"fmt"
-	"strconv"
-
 	"github.com/cherryservers/cherrygo/v3"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -40,27 +37,9 @@ func (c *Command) list() *cobra.Command {
 				return errors.Wrap(err, "Could not list plans")
 			}
 
-			data := make([][]string, 0)
-			for _, p := range plans {
-				priceHour := "-"
-				priceSpot := "-"
-				for _, pricing := range p.Pricing {
-					if pricing.Unit == "Hourly" {
-						priceHour = fmt.Sprintf("%f", pricing.Price)
-					} else if pricing.Unit == "Spot hourly" {
-						priceSpot = fmt.Sprintf("%f", pricing.Price)
-					}
-				}
+			th, td := plansToTable(region, plans...)
 
-				for _, r := range p.AvailableRegions {
-					if region == "" || region == r.Slug || region == strconv.Itoa(r.ID) {
-						data = append(data, []string{p.Slug, r.Slug, strconv.Itoa(r.StockQty), priceHour, strconv.Itoa(r.SpotQty), priceSpot})
-					}
-				}
-			}
-			header := []string{"Plan Slug", "Region Slug", "Stock Hourly", "Hourly Price", "Stock Spot", "Spot Price"}
-
-			return c.Outputer().Output(plans, header, &data)
+			return c.Outputer().Output(plans, th, &td)
 		},
 	}
 

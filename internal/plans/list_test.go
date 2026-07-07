@@ -95,7 +95,7 @@ func TestList(t *testing.T) {
 			}
 
 			wantPlan := fakeSvc.Plan()
-			wantTh := []string{"Plan Slug", "Region Slug", "Stock Hourly", "Hourly Price", "Stock Spot", "Spot Price"}
+			wantTh := []string{"plan slug", "region slug", "stock hourly", "hourly price", "stock spot", "spot price"}
 			fakeOut.Calls[0].Assert(t, []cherrygo.Plan{wantPlan}, wantTh, tc.wantTd)
 		})
 	}

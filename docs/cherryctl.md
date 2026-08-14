@@ -26,6 +26,7 @@ cherryctl is a command line interface (CLI) for Cherry Servers API
 * [cherryctl image](cherryctl_image.md)	 - Image operations.
 * [cherryctl init](cherryctl_init.md)	 - Configuration file initialization.
 * [cherryctl ip](cherryctl_ip.md)	 - IP address operations. For more information on IP addresses, check out the Product Docs: https://docs.cherryservers.com/knowledge/product-docs#ip-addressing
+* [cherryctl load-balancer](cherryctl_load-balancer.md)	 - Load balancer operations. For details on load balancers, see the product docs: https://www.cherryservers.com/knowledge/docs/networking/load-balancer
 * [cherryctl plan](cherryctl_plan.md)	 - Plan operations.
 * [cherryctl project](cherryctl_project.md)	 - Project operations.
 * [cherryctl region](cherryctl_region.md)	 - Region operations. For more information on Networking, check the Product Docs: https://docs.cherryservers.com/knowledge/product-docs#network

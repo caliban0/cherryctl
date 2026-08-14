@@ -10,6 +10,7 @@ import (
 	"github.com/cherryservers/cherryctl/internal/images"
 	initPck "github.com/cherryservers/cherryctl/internal/init"
 	"github.com/cherryservers/cherryctl/internal/ips"
+	"github.com/cherryservers/cherryctl/internal/loadbalancers"
 	"github.com/cherryservers/cherryctl/internal/outputs"
 	"github.com/cherryservers/cherryctl/internal/plans"
 	"github.com/cherryservers/cherryctl/internal/projects"
@@ -81,6 +82,14 @@ func (d *serverDeps) Client() cherrygo.ServersService {
 	return d.client.API(nil).Servers
 }
 
+type lbDeps struct {
+	sharedDeps
+}
+
+func (d *lbDeps) Client() cherrygo.LoadBalancerService {
+	return d.client.API(nil).LoadBalancers
+}
+
 func (cli *Cli) RegisterCommands(client *root.Client) {
 	shared := sharedDeps{
 		out:    cli.Outputer,
@@ -103,5 +112,6 @@ func (cli *Cli) RegisterCommands(client *root.Client) {
 		sshkeys.NewClient(client, cli.Outputer).NewCommand(),
 		images.NewClient(client, cli.Outputer).NewCommand(),
 		users.NewClient(client, cli.Outputer).NewCommand(),
+		loadbalancers.NewCommand(&lbDeps{sharedDeps: shared}).CobraCommand(),
 	)
 }

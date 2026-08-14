@@ -246,8 +246,8 @@ func TestCreate(t *testing.T) {
 			if len(fakeOut.Calls) != 1 {
 				t.Fatalf("want 1 output call, got %d", len(fakeOut.Calls))
 			}
-			wantTh := []string{"ID", "Name", "Hostname", "Image", "State", "Region"}
-			wantTd := [][]string{{"1", "", "", "", "", ""}}
+			wantTh := []string{"ID", "Name", "Hostname", "State", "Region"}
+			wantTd := [][]string{{"1", "", "", "", ""}}
 			fakeOut.Calls[0].Assert(t, cherrygo.Server{ID: 1}, wantTh, wantTd)
 
 		})

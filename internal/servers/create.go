@@ -90,9 +90,9 @@ func (c *Command) Create() *cobra.Command {
 				return errors.Wrap(err, "Could not provision a server")
 			}
 
-			header := []string{"ID", "Name", "Hostname", "Image", "State", "Region"}
+			header := []string{"ID", "Name", "Hostname", "State", "Region"}
 			data := make([][]string, 1)
-			data[0] = []string{strconv.Itoa(s.ID), s.Name, s.Hostname, s.Image, s.State, s.Region.Name}
+			data[0] = []string{strconv.Itoa(s.ID), s.Name, s.Hostname, s.State, s.Region.Name}
 
 			return c.Outputer().Output(s, header, &data)
 		},

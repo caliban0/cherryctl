@@ -5,6 +5,7 @@ go 1.25.0
 require (
 	github.com/cherryservers/cherrygo/v4 v4.2.0
 	github.com/google/uuid v1.6.0
+	github.com/landlock-lsm/go-landlock v0.10.1
 	github.com/manifoldco/promptui v0.9.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/pkg/errors v0.9.1
@@ -33,4 +34,5 @@ require (
 	golang.org/x/sys v0.47.0 // indirect
 	golang.org/x/text v0.34.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+	kernel.org/pub/linux/libs/security/libcap/psx v1.2.77 // indirect
 )

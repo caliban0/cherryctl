@@ -2,12 +2,14 @@ package servers
 
 import (
 	"github.com/cherryservers/cherryctl/internal/outputs"
+	"github.com/cherryservers/cherryctl/internal/sandbox"
 	"github.com/cherryservers/cherrygo/v4"
 	"github.com/spf13/cobra"
 )
 
 type Command struct {
 	Deps
+	pr sandbox.PermissionRegistry
 }
 
 func (c *Command) CobraCommand() *cobra.Command {
@@ -44,9 +46,10 @@ type Deps interface {
 	Outputer() outputs.Outputer
 }
 
-func NewCommand(dep Deps) *Command {
+func NewCommand(dep Deps, pr sandbox.PermissionRegistry) *Command {
 	return &Command{
 		Deps: dep,
+		pr:   pr,
 	}
 }
 

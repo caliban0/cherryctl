@@ -14,6 +14,7 @@ import (
 	"github.com/cherryservers/cherryctl/internal/plans"
 	"github.com/cherryservers/cherryctl/internal/projects"
 	"github.com/cherryservers/cherryctl/internal/regions"
+	"github.com/cherryservers/cherryctl/internal/sandbox"
 	"github.com/cherryservers/cherryctl/internal/servers"
 	"github.com/cherryservers/cherryctl/internal/sshkeys"
 	"github.com/cherryservers/cherryctl/internal/storages"
@@ -35,12 +36,14 @@ func NewCli() *Cli {
 		Outputer: &outputs.Standard{},
 	}
 
+	var sb sandbox.Landlock
+
 	rootClient := root.NewClient(Version)
-	rootCmd := rootClient.NewCommand()
+	rootCmd := rootClient.NewCommand(&sb)
 	rootCmd.DisableSuggestions = false
 	cli.MainCmd = rootCmd
 
-	cli.RegisterCommands(rootClient)
+	cli.RegisterCommands(rootClient, &sb)
 
 	cobra.OnInitialize(
 		func() {
@@ -51,8 +54,8 @@ func NewCli() *Cli {
 }
 
 type sharedDeps struct {
-	out    outputs.Outputer
-	client *root.Client
+	out      outputs.Outputer
+	client   *root.Client
 }
 
 func (d sharedDeps) GetOpts() *cherrygo.GetOptions {
@@ -81,7 +84,7 @@ func (d *serverDeps) Client() cherrygo.ServersService {
 	return d.client.API(nil).Servers
 }
 
-func (cli *Cli) RegisterCommands(client *root.Client) {
+func (cli *Cli) RegisterCommands(client *root.Client, pr sandbox.PermissionRegistry) {
 	shared := sharedDeps{
 		out:    cli.Outputer,
 		client: client,
@@ -90,7 +93,7 @@ func (cli *Cli) RegisterCommands(client *root.Client) {
 		docs.NewCommand(),
 
 		initPck.NewClient(client).NewCommand(),
-		servers.NewCommand(&serverDeps{sharedDeps: shared}).CobraCommand(),
+		servers.NewCommand(&serverDeps{sharedDeps: shared}, pr).CobraCommand(),
 		ips.NewClient(client, cli.Outputer).NewCommand(),
 		storages.NewClient(client, cli.Outputer).NewCommand(),
 		backups.NewClient(client, cli.Outputer).NewCommand(),

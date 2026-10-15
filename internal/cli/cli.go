@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/cherryservers/cherryctl/internal/outputs"
+	"github.com/cherryservers/cherryctl/internal/sandbox"
 	"github.com/cherryservers/cherrygo/v4"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -87,7 +88,7 @@ func (c *Client) Format() outputs.Format {
 	return format
 }
 
-func (c *Client) NewCommand() *cobra.Command {
+func (c *Client) NewCommand(sb sandbox.Sandbox) *cobra.Command {
 	// rootCmd represents the base command when called without any subcommands
 	rootCmd := &cobra.Command{
 		Use:               "cherryctl",
@@ -95,8 +96,15 @@ func (c *Client) NewCommand() *cobra.Command {
 		Long:              `cherryctl is a command line interface (CLI) for Cherry Servers API`,
 		DisableAutoGenTag: true,
 
-		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			c.Config(cmd)
+			// If we want to apply the sandbox before configuration, we would need to
+			// ensure all of the possible config paths are permitted.
+			err := sb.Apply(cmd)
+			if err != sandbox.UnsupportedPlatformError {
+				return err
+			}
+			return nil
 		},
 	}
 	rootCmd.PersistentFlags().String("api-key", "", "API key. Can be created at https://portal.cherryservers.com/settings/api-keys.")

@@ -3,6 +3,7 @@ package servers
 import (
 	"encoding/base64"
 	"fmt"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -122,6 +123,14 @@ func (c *Command) Create() *cobra.Command {
 	_ = createServerCmd.MarkFlagRequired("project-id")
 	_ = createServerCmd.MarkFlagRequired("plan")
 	_ = createServerCmd.MarkFlagRequired("region")
+
+	c.pr.RegisterFileReadPermission(createServerCmd, func() []string {
+		if userDataPath != "" {
+			path, _ := filepath.Abs(userDataPath)
+			return []string{path}
+		}
+		return nil
+	})
 
 	return createServerCmd
 }
